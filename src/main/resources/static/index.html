@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Starter | Miner</title>
+
+      <!-- Bootstrap css form cdn -->
+      <link rel="stylesheet" href="./css/bootstrap.min.css">
+      <!-- Font awesome css -->
+      <link rel="stylesheet" href="./css/font-awesome.min.css">
+      <!-- Owl carousel 2 css -->
+      <link rel="stylesheet" href="css/owl.carousel.css">
+      <!-- Custom CSS -->
+      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="css/responsive.css">
+
+      <link rel="stylesheet" href="css/sweetalert2.min.css">
+
+      <style>
+          table td{border:1px solid #5e5e5e; padding: 5px}
+      </style>
+  </head>
+    <body>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="logo">
+                        <h1><a href="">SMGame矿区</a></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header> <!-- End header -->
+
+    <section id="slider">
+        <div data-velocity="-.2" class="overlay-bg slide-bg"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="slide-text-wrapper">
+                    <div class="slide-text text-center">
+                        <h1 class="typewrite" data-period="2000" data-type='[ "Hello, I am Developer.", "Welcome to my mining area.", "You can help your friend accelerate mining.", "If you want to play?", "Please send email to me from below form." ]'>
+                            <span class="wrap"></span>
+                        </h1>
+
+                        <H3>SMGame Mining Area</H3>
+                        <p></p>
+                        <H6>为TA助力, 助TA加快挖矿速度</H6>
+                        <H6>点击下方按钮.</H6>
+
+                        <div class="customer">
+                            <a href="#start" class="learn-more">开启挖掘</a>
+                            <a href="#help" class="learn-more">为 TA 助力</a>
+                        </div>
+                    </div>
+
+                    <div class="scroll-to-bottom">
+                        <a href="#contact-us">联系我</a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section> <!-- End slider -->
+
+    <section id="start" class="section-padding" style="margin-top: 50px">
+        <div class="container" id="startMining">
+            <div class="row">
+                <div class="col-md-6" v-if="!connect">
+                    <div class="form-content">
+                        <h2>登陆内测账号</h2>
+                        <fieldset class="clean">
+                            <input placeholder="手机号" type="text" name="account" id="account" size="30" value="" v-model="account" required/>
+                        </fieldset>
+                        <fieldset class="clean">
+                            <input placeholder="授权码" type="text" name="password" id="password" value="" v-model="userCode" required/>
+                        </fieldset>
+                        <fieldset>
+                            <input id="login" type="submit" name="login" value="Login" @click="userAuth" />
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="col-md-4" v-if="connect">
+                    <div class="single-service customer">
+                        <i class="fa"><img src="img/avater.jpg" style="margin-top: -21px"></i>
+                        <h5>用户授权码：{{userCode}}</h5>
+                        <h5>注册时间：{{createTime}}</h5>
+                        <h5>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td>矿币类型</td>
+                                    <td>拥有矿量</td>
+                                </tr>
+                                <tr>
+                                    <td>普通矿币</td>
+                                    <td>{{commonCoin}}</td>
+                                </tr>
+                                <tr>
+                                    <td>高级矿币</td>
+                                    <td>{{seniorCoin}}</td>
+                                </tr>
+                                <tr>
+                                    <td>稀有矿币</td>
+                                    <td>{{rareCoin}}</td>
+                                </tr>
+                                <tr>
+                                    <td>罕见矿币</td>
+                                    <td>{{fewCoin}}</td>
+                                </tr>
+                            </table>
+                        </h5>
+                        <p>矿量兑换规则：<a href="#aboutCoin">点击查看</a></p>
+                        <h5>矿区余量不足通知：<div class="learn-more-b" v-if="!subscribe">开启</div><div class="learn-more-b" v-if="subscribe">关闭</div></h5>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section-padding text-center">
+        <div class="container" id = "areaList" v-if="isAuth">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="page-title">
+                        <h3>矿量信息</h3>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td>矿区名称</td>
+                                <td>总量</td>
+                                <td>余量</td>
+                                <td>切换矿区</td>
+                            </tr>
+                            <tr v-for = "area in areaList">
+                                <td>
+                                    {{area.areaName}}
+                                </td>
+                                <td>
+                                    {{area.total}}
+                                </td>
+                                <td>
+                                    {{area.surplus}}
+                                </td>
+                                <td>
+                                    <div class="learn-more-b" v-if="areaCode != area.areaCode">切换</div>
+                                    <div class="learn-more-c" v-if="areaCode === area.areaCode">当前</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-8 col-md-offset-2" id="aboutCoin">
+                    <div class="page-title">
+                        <h3>矿币详情</h3>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td>矿币类型</td>
+                                <td>产出概率</td>
+                                <td>兑换比例</td>
+                                <td>难度位数</td>
+                            </tr>
+                            <tr>
+                                <td>普通矿币</td>
+                                <td>100%</td>
+                                <td>1 : 10RMB</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>高级矿币</td>
+                                <td>10%</td>
+                                <td>1 : 20RMB</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td>稀有矿币</td>
+                                <td>1%</td>
+                                <td>1 : 50RMB</td>
+                                <td>6</td>
+                            </tr>
+                            <tr>
+                                <td>罕见矿币</td>
+                                <td>0.1%</td>
+                                <td>1 : 100RMB</td>
+                                <td>7</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="page-title">
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> <!-- End about -->
+
+    <section id="help" class="section-padding text-center">
+        <div class="container" id="helpFriend">
+            <div class="row">
+                <div class="col-md-12 col-md-offset-2">
+                    <div class="form-content">
+                        <h2>为 TA 助力</h2>
+                        <fieldset class="clean">
+                            <input placeholder="用户编码" type="text" name="userCode" id="userCode" value="" required/>
+                        </fieldset>
+                        <fieldset>
+                            <input id="helpSubmit" type="submit" name="helpSubmit" value="help" />
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="page-title">
+                        <div class="branding-photo">
+                            <img src="img/device-1.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact-us" class="section-padding">
+        <div class="container" id="mail">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="page-title text-center">
+                        <h2>联系我</h2>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;目前SMGame属于内测中，暂不开放自主注册功能，如需体验或帮忙测试，可在以下表单中填写姓名、邮箱、电话，由开发者帮忙开通账号，届时将会以邮件通知的形式将账号发到您手中。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-content">
+                        <h2>申请内测账号</h2>
+                        <fieldset class="clean">
+                            <input placeholder="姓名" type="text" name="name" id="name" size="30" value="" v-model="name" required/>
+                        </fieldset>
+                        <fieldset class="clean">
+                            <input placeholder="手机号码" type="text" name="mobile" id="mobile" value="" v-model="mobile" required/>
+                        </fieldset>
+                        <fieldset class="clean">
+                            <input placeholder="邮箱地址" type="text" name="email" id="email" size="30" value="" v-model="email" required/>
+                        </fieldset>
+                        <fieldset class="clean">
+                            <textarea placeholder="申请目的" name="goal" id="goal" v-model="goal" required></textarea>
+                        </fieldset>
+                        <fieldset>
+                            <input id="clickSend" type="submit" name="submit" value="Send message" @click="sendMail" />
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> <!-- End contact us -->
+
+    <footer class="footer" style="margin-top: 20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="footer-copyright" style="padding-bottom: 20px">
+                        <p>&copy; Starter 2019, All Right Reserved. Designed with by Mr.Dong</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer> <!-- End footer top -->
+
+    <!-- jQuery form CDN -->
+    <script src="./js/jquery.min.js"></script>
+
+    <!-- Bootstrap form CDN -->
+    <script src="./js/bootstrap.min.js"></script>
+
+    <!-- jQUery scrolly parallax -->
+    <script src="js/jquery.scrolly.js"></script>
+
+    <!-- jQuery sticky -->
+    <script src="js/jquery.sticky.js"></script>
+
+    <!-- jQuery easing -->
+    <script src="js/jquery.easing.1.3.min.js"></script>
+
+    <!-- jQuery owl carousel -->
+    <script src="js/owl.carousel.min.js"></script>
+
+    <!-- jQuery main script -->
+    <script src="js/main.js"></script>
+
+    <script src="js/sweetalert/sweetalert2.min.js"></script>
+
+    <!-- vue -->
+    <script src="js/vue.min.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/sweetalert/customer.alert.js"></script>
+
+    <script src="js/miner/GlobalVariable.js"></script>
+    <script src="js/miner/areaList.js"></script>
+    <script src="js/miner/startMining.js"></script>
+    <script src="js/miner/mail.js"></script>
+  </body>
+</html>

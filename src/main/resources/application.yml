@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: small-game
+  # database
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/smallgamedb?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+#    username: root
+#    password: 1
+#    driver-class-name: com.mysql.jdbc.Driver
+#  jpa:
+#    database: MYSQL
+#    # Show or not log for each sql query
+#    show-sql: true
+#    # Hibernate ddl auto (create, create-drop, update)
+#    hibernate:
+#      ddl-auto: update
+#      # Naming strategy
+#      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+#  # default InnoDB engine
+#  properties:
+#    hibernate:
+#      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  redis:
+    host: 127.0.0.1
+#    host: 103.45.102.252
+    port: 6379
+    password:
+  data:
+    mongodb:
+      host: localhost
+#      host: 103.45.102.252
+      port: 27017
+      database: small-game
+  mail:
+    host: smtp.qq.com
+    username: 2451013452@qq.com
+    password: bgboiiofyzngecdf
+    default-encoding: UTF-8
+
+server:
+  port: 8999
+
+netty-websocket:
+  port: 8990

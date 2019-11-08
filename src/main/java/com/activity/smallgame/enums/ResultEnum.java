@@ -20,6 +20,10 @@ public enum  ResultEnum {
     USER_WALLET_NOT_EXIST(1004, "User wallet not exist"),
     MINING_AREA_SURPLUS_ZERO(1005, "Mining area surplus zero"),
     SEND_MAIL_ALREADY_TODAY(1006, "Send Mail Already to day"),
+    NOT_LUCK_DRAW(1007, "User not luck draw"),
+    LUCK_DRAW_ALREADY(1008, "User luck draw already"),
+    LUCK_DRAW_MULTIPLE_ALREADY(1009, "User luck draw multiple already"),
+    LUCK_DRAW_RESET_ALREADY(1010, "User luck draw reset already"),
 
     // socket code
     SK_NOT_AUTH(2000, "NOT AUTH"),
